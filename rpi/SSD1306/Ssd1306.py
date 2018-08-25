@@ -13,11 +13,14 @@ class Ssd1306:
     # Button definition
     BUTTON_LEFT, BUTTON_RIGHT, BUTTON_UP, BUTTON_DOWN, BUTTON_CENTER, BUTTON_A, BUTTON_B = range(7)
 
+    # Button names
+    BUTTON_NAMES = ('L', 'R', 'U', 'D', 'C', 'A', 'B')
+
     # Buttons available
     BUTTONS = (BUTTON_LEFT, BUTTON_RIGHT, BUTTON_UP, BUTTON_DOWN, BUTTON_CENTER, BUTTON_A, BUTTON_B)
 
     # Button pins
-    BUTTON_PINS = (27, 23, 4, 17, 22, 5, 6)
+    BUTTON_PINS = (27, 23, 17, 22, 4, 5, 6)
 
     def __init__(self):
         # Crate renderer

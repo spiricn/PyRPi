@@ -18,7 +18,7 @@ def main():
     # Register button callbacks
     for button in ssd.BUTTONS:
         ssd.setButtonListener(button,
-                              lambda button, pressed: print('Button %s %d' % ('pressed' if pressed else 'released', button))
+                              lambda button, pressed: print('Button %s %s' % ('pressed' if pressed else 'released', Ssd1306.BUTTON_NAMES[button]))
                               )
 
     counter = 0
@@ -40,7 +40,7 @@ def main():
 
         # Second line of text (button status)
         for button in ssd.BUTTONS:
-            text += '' if not ssd.isButtonPressed(button) else ' %d' % button
+            text += '' if not ssd.isButtonPressed(button) else ' %s' % Ssd1306.BUTTON_NAMES[button]
 
         # Clear background
         ssd.renderer.clear()
