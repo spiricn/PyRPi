@@ -3,26 +3,29 @@
 
 Wrapper for the Adafruit SSD1306 Raspberry PI OLEG display
 
-### Install dependencies:
+## Quick start
 
-```
-sudo apt-get update
-sudo apt-get install build-essential python-dev python-pip
-sudo pip install RPi.GPIO
-sudo apt-get install python-imaging python-smbus
-```
+* Install dependencies
+
+    ```
+    sudo apt-get update
+    sudo apt-get install build-essential python-dev python-pip
+    sudo pip install RPi.GPIO
+    sudo apt-get install python-imaging python-smbus
+    ```
 
 
-### Install library
+* Install the Adafruit library
 
-```
-sudo apt-get install git
-git clone https://github.com/adafruit/Adafruit_Python_SSD1306.git
-cd Adafruit_Python_SSD1306
-sudo python setup.py install
-```
+    ```
+    sudo apt-get install git
+    git clone https://github.com/adafruit/Adafruit_Python_SSD1306.git
+    cd Adafruit_Python_SSD1306
+    sudo python setup.py install
+    ```
 
-### Run sample
-```
-PYTHONPATH=`pwd` python3 rpi/SSD1306/Example.py
-```
+* Run the example
+
+    ```
+    PYTHONPATH=`pwd` python3 rpi/SSD1306/Example.py
+    ```
