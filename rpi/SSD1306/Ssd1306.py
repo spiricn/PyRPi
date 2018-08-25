@@ -1,8 +1,8 @@
 
-import Adafruit_GPIO.SPI as SPI
 import Adafruit_SSD1306
 import RPi.GPIO as GPIO
 from rpi.SSD1306.Renderer import Renderer
+from rpi.IOPin import IOPin
 
 
 class Ssd1306:
@@ -26,9 +26,11 @@ class Ssd1306:
         # Initialize GPIO
         GPIO.setmode(GPIO.BCM)
 
+        self._pins = []
+
         # Initialize button pins
-        for pin in self.BUTTON_PINS:
-            GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+        for pinNumber in self.BUTTON_PINS:
+            self._pins.append(IOPin.createInput(pinNumber, IOPin.PUD_UP))
 
     def setButtonListener(self, button, callback):
         '''
@@ -41,12 +43,7 @@ class Ssd1306:
         # Get button pin
         pin = self.getButtonPin(button)
 
-        # Register event
-        GPIO.add_event_detect(
-            pin,
-            GPIO.BOTH,  # detect both rising and falling edge
-            callback=lambda pin: callback(button, self.isButtonPressed(button)),
-                              bouncetime=10)
+        pin.setCallback(lambda ioPin: callback(button, self.isButtonPressed(button)))
 
     def isButtonPressed(self, button):
         '''
@@ -57,7 +54,7 @@ class Ssd1306:
         @return: True if pressed, False otherwise
         '''
 
-        return not GPIO.input(self.getButtonPin(button))
+        return not self.getButtonPin(button).input
 
     def getButtonPin(self, button):
         '''
@@ -68,7 +65,7 @@ class Ssd1306:
         @return PIN number on success, None otherwise 
         '''
 
-        return self.BUTTON_PINS[button] if button < len(self.BUTTON_PINS) else None
+        return self._pins[button] if button < len(self._pins) else None
 
     @property
     def renderer(self):

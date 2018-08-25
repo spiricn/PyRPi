@@ -1,7 +1,8 @@
 import sys
 import time
+import rpi
+
 from rpi.SSD1306.Ssd1306 import Ssd1306
-from rpi import SSD1306
 
 
 def main():
