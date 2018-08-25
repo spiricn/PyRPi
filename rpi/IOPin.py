@@ -13,6 +13,11 @@ class IOPin:
         self._number = number
         self._mode = mode
 
+        self._output = False
+
+        if mode == GPIO.OUT:
+            self.setOutput(False)
+
     @staticmethod
     def createInput(number, pullUpDown=GPIO.PUD_DOWN):
         '''
@@ -53,6 +58,16 @@ class IOPin:
         '''
 
         GPIO.output(self._number, GPIO.HIGH if output else GPIO.LOW)
+
+        self._output = output
+
+    @property
+    def output(self):
+        '''
+        Output state
+        '''
+
+        return self._output
 
     def setCallback(self, callback, mode=GPIO.BOTH, bounceTimeMs=10):
         '''
