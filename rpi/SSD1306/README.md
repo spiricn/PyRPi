@@ -24,5 +24,5 @@ sudo python setup.py install
 
 ### Run sample
 ```
-PYTHONPATH=`pwd` python3 rpi/ssd1306/Example.py
+PYTHONPATH=`pwd` python3 rpi/SSD1306/Example.py
 ```
