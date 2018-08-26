@@ -5,6 +5,7 @@ from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
 import RPi.GPIO as GPIO
+from threading import Lock
 
 
 class Renderer:
@@ -26,6 +27,8 @@ class Renderer:
 
         # Load font
         self._font = ImageFont.load_default()
+
+        self._lock = Lock()
 
     @property
     def width(self):
@@ -50,7 +53,8 @@ class Renderer:
         @param color: Color in range [0, 255] 
         '''
 
-        self._draw.rectangle(self.rect, outline=0, fill=color)
+        with self._lock:
+            self._draw.rectangle(self.rect, outline=0, fill=color)
 
     def drawText(self, position, text, color=255):
         '''
@@ -60,23 +64,25 @@ class Renderer:
         @param text: Text
         @param color: Text color 
         '''
-        x, y = position
+        with self._lock:
+            x, y = position
 
-        # Go trough the text line by line
-        for line in text.splitlines():
-            # Draw single line
-            self._draw.text((x, y), line, font=self._font, fill=color)
+            # Go trough the text line by line
+            for line in text.splitlines():
+                # Draw single line
+                self._draw.text((x, y), line, font=self._font, fill=color)
 
-            # Move to the next row
-            y += self.measureText(line)[1]
+                # Move to the next row
+                y += self.measureText(line)[1]
 
     def display(self):
         '''
         Displays drawn image
         '''
 
-        self._disp.image(self._image)
-        self._disp.display()
+        with self._lock:
+            self._disp.image(self._image)
+            self._disp.display()
 
     def measureText(self, text):
         '''
