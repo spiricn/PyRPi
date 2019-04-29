@@ -19,5 +19,7 @@ setup(
 
       packages=find_packages(),
 
-	  license=rpi.__license__,
+      license=rpi.__license__,
+
+      install_requires=['RPi.GPIO'],
 )
